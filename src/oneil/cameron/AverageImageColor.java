@@ -1,6 +1,8 @@
 package oneil.cameron;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.DataBufferByte;
 import java.awt.image.BufferedImage;
@@ -8,8 +10,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class AverageImageColor{
+@SuppressWarnings("serial")
+public class AverageImageColor extends JFrame{
 	
 	public AverageImageColor() {
 		
@@ -31,6 +37,28 @@ public class AverageImageColor{
 		greens/= pixels.length*pixels[0].length;
 		blues/= pixels.length*pixels[0].length;
 		say(reds + " " + greens + " " + blues);
+		
+		final Color color = new Color(reds,greens,blues);
+		
+		setSize(200, 200);
+		add(new JPanel(){
+			
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				
+				g.setColor(color);
+				g.fillRect(0, 0, 200, 200);
+				
+			}
+			
+		});
+		
+		add(new JLabel(reds + " " + greens + " " + blues), BorderLayout.SOUTH);
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
 		
 	}
 	
